@@ -2,13 +2,11 @@ import '/exports.dart';
 
 class CategoryContainer extends StatelessWidget {
   final String text;
-  final IconData icon;
   final void Function() onTap;
 
   const CategoryContainer({
     super.key,
     required this.text,
-    required this.icon,
     required this.onTap,
   });
 
@@ -25,24 +23,15 @@ class CategoryContainer extends StatelessWidget {
             fit: BoxFit.fill,
           ),
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              icon,
-              color: primary,
-              size: 50,
+        child: Center(
+          child: Text(
+            text,
+            style: TextStyle(
+              color: white,
+              fontSize: 25,
+              fontStyle: FontStyle.italic,
             ),
-            const SizedBox(width: 25),
-            Text(
-              text,
-              style: TextStyle(
-                color: white,
-                fontSize: 25,
-                fontStyle: FontStyle.italic,
-              ),
-            )
-          ],
+          ),
         ),
       ),
     );
@@ -50,7 +39,8 @@ class CategoryContainer extends StatelessWidget {
 }
 
 class ProductContainer extends StatelessWidget {
-  final String name, price, image;
+  final String name, image;
+  final double price;
   final void Function() onTap;
 
   const ProductContainer({
@@ -103,7 +93,7 @@ class ProductContainer extends StatelessWidget {
                     style: const TextStyle(fontSize: 20),
                   ),
                   Text(
-                    price,
+                    price.toString(),
                     style: const TextStyle(fontSize: 20),
                   )
                 ],

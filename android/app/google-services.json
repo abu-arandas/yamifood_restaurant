@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "303117800586",
+    "firebase_url": "https://yamifood-restaurants-default-rtdb.firebaseio.com",
+    "project_id": "yamifood-restaurants",
+    "storage_bucket": "yamifood-restaurants.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:303117800586:android:0218938c43166fd64f0973",
+        "android_client_info": {
+          "package_name": "com.example.yamifood_restaurant"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "303117800586-84aptr514ctmh59p01s1ch848d47886f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmcjMUDmEqmHzFK8VrFqdAvT2j1m8lnQA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "303117800586-84aptr514ctmh59p01s1ch848d47886f.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "303117800586-m1t8hr1jfaaglt4dh57v0n6kncm2n60f.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.yamifoodRestaurant"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

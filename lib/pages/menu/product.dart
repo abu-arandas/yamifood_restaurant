@@ -1,25 +1,21 @@
 import '/exports.dart';
 
-class Product extends StatefulWidget {
+class Product extends StatelessWidget {
   final ProductModel productModel;
   const Product({super.key, required this.productModel});
 
   @override
-  State<Product> createState() => _ProductState();
-}
-
-class _ProductState extends State<Product> {
-  @override
   Widget build(BuildContext context) {
     return MyScaffold(
       // AppBar
-      title: widget.productModel.name,
+      title: productModel.name,
       appBarActions: [
-        widget.productModel.isFavorite == true
+        /*
+        productModel.isFavorite == true
             ? IconButton(
                 onPressed: () {
                   setState(() {
-                    widget.productModel.isFavorite = false;
+                    productModel.isFavorite = false;
                   });
                 },
                 icon: const Icon(
@@ -28,27 +24,33 @@ class _ProductState extends State<Product> {
             : IconButton(
                 onPressed: () {
                   setState(() {
-                    widget.productModel.isFavorite = true;
-                    favorite.add(widget.productModel);
+                    productModel.isFavorite = true;
+                    favorite.add(productModel);
                   });
                 },
                 icon: const Icon(
                   FontAwesomeIcons.heart,
                 ))
+        */
+        IconButton(
+            onPressed: () {},
+            icon: const Icon(
+              FontAwesomeIcons.heartCircleMinus,
+            ))
       ],
 
       // Body
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Image.asset(widget.productModel.image),
+          Image.asset(productModel.image),
           Padding(
             padding: const EdgeInsets.all(25),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  widget.productModel.name,
+                  productModel.name,
                   style: TextStyle(
                       color: white,
                       fontSize: 20,
@@ -56,7 +58,7 @@ class _ProductState extends State<Product> {
                       fontStyle: FontStyle.italic),
                 ),
                 Text(
-                  widget.productModel.price,
+                  productModel.price.toString(),
                   style: TextStyle(
                       color: primary,
                       fontSize: 20,
@@ -69,7 +71,7 @@ class _ProductState extends State<Product> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25),
             child: Text(
-              widget.productModel.description,
+              productModel.description,
               style: TextStyle(
                 color: grey,
                 fontSize: 16,

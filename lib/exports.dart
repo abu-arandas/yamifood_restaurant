@@ -1,15 +1,23 @@
 /* ====== Packages ====== */
+// Flutter
 export 'package:flutter/material.dart';
 export 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+// Firebase
+export 'firebase_options.dart';
+export 'package:firebase_core/firebase_core.dart';
+export 'package:cloud_firestore/cloud_firestore.dart';
+export 'package:firebase_storage/firebase_storage.dart';
+
 /* ====== Pages ====== */
-export 'pages/welcome.dart';
-export 'pages/menu.dart';
-export 'pages/category.dart';
-export 'pages/product.dart';
-export 'pages/faorite.dart';
+export 'pages/favorite.dart';
 export 'pages/cart.dart';
 export 'pages/contact.dart';
+
+// Menu
+export 'pages/menu/menu.dart';
+export 'pages/menu/category.dart';
+export 'pages/menu/product.dart';
 
 /* ====== Components ====== */
 export 'components/constants.dart';
