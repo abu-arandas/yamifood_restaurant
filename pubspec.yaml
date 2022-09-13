@@ -1,0 +1,52 @@
+name: yamifood_restaurant
+description: Yamifood Restaurant
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=2.18.0 <3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+  font_awesome_flutter: ^10.2.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^2.0.0
+  flutter_app_name: ^0.1.1
+  flutter_launcher_icons: ^0.10.0
+  flutter_native_splash: ^2.2.0+1
+
+# App Name
+flutter_app_name:
+  name: 'Yamifood Restaurant'
+
+# App Icon
+flutter_icons:
+  android: 'launcher_icon'
+  ios: true
+  image_path: 'asset/favicon.png'
+  min_sdk_android: 21
+
+# App Splash Screen
+flutter_native_splash:
+  color: "#ffffff"
+  image: asset/favicon.png
+  android_12:
+    image: asset/favicon.png
+    color: "#ffffff"
+  android: true
+  ios: true
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - asset/
+    - asset/products/
