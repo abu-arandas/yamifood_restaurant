@@ -11,11 +11,6 @@ Color grey = Colors.grey;
 
 double dPadding = 16.0;
 
-FirebaseFirestore firestore = FirebaseFirestore.instance;
-FirebaseStorage storage = FirebaseStorage.instance;
-
-final categoryCollection = firestore.collection('category');
-
 // Widgets
 Widget endOfPage(context) {
   return Padding(

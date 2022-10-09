@@ -8,37 +8,26 @@ class Category extends StatelessWidget {
   Widget build(BuildContext context) {
     return MyScaffold(
       title: categoryModel.name,
-      body: StreamBuilder<DocumentSnapshot>(
-        stream: categoryCollection.doc(categoryModel.id).snapshots(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            final data = snapshot.data!.get('subcategory').toList();
+      body: ListView.builder(
+        itemCount: categoryModel.subcategory.length,
+        itemBuilder: (context, index) {
+          final singleProduct = ProductModel(
+            name: categoryModel.subcategory[index].name,
+            description: categoryModel.subcategory[index].description,
+            price: categoryModel.subcategory[index].price,
+            image: categoryModel.subcategory[index].image,
+          );
 
-            return ListView.builder(
-              itemCount: data.length,
-              itemBuilder: (context, index) {
-                final singleProduct = ProductModel(
-                  name: data[index]['name'],
-                  description: data[index]['description'],
-                  price: data[index]['price'],
-                  image: data[index]['image'],
-                );
-
-                return ProductContainer(
-                  name: singleProduct.name,
-                  price: singleProduct.price,
-                  image: singleProduct.image,
-                  onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              Product(productModel: singleProduct))),
-                );
-              },
-            );
-          } else {
-            return waitContainer();
-          }
+          return ProductContainer(
+            name: singleProduct.name,
+            price: singleProduct.price,
+            image: singleProduct.image,
+            onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        Product(productModel: singleProduct))),
+          );
         },
       ),
     );
