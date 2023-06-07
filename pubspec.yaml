@@ -1,0 +1,66 @@
+name: yamifood_restaurant
+description: Yamifood Restaurant | E-commerce Application
+publish_to: 'none'
+version: 1.0.0+1
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+dependencies:
+  flutter:
+    sdk: flutter
+  # Firebase
+  firebase_core: ^2.13.0
+  firebase_auth: ^4.6.1
+  cloud_firestore: ^4.7.1
+  firebase_messaging: ^14.5.0
+
+  # Package
+  flutter_app_name: ^0.1.1
+  flutter_launcher_icons: ^0.11.0
+  cupertino_icons: ^1.0.2
+  get: ^4.6.5
+  flutter_admin_scaffold: ^1.2.0
+  flutter_local_notifications: ^12.0.4
+  awesome_snackbar_content: ^0.1.1
+  font_awesome_flutter: ^10.4.0
+  image_picker: ^0.8.7+5
+  carousel_slider: ^4.2.1
+  phone_form_field: ^3.0.1
+  geolocator: ^9.0.2
+  geocoding: ^2.1.0
+  google_maps_flutter: ^2.2.8
+  flutter_polyline_points: ^1.0.0
+  flutter_carousel_slider: ^1.1.0
+  url_launcher: ^6.1.11
+  syncfusion_flutter_charts: ^21.2.5
+  multi_select_flutter: ^4.1.3
+  syncfusion_flutter_datepicker: ^21.2.8
+
+# App Name
+flutter_app_name:
+  name: 'Yamifood Restaurant'
+
+# App Icon
+flutter_icons:
+  android: 'launcher_icon'
+  ios: true
+  image_path: 'asset/favicon.png'
+  min_sdk_android: 21
+  web:
+    generate: true
+    image_path: 'asset/favicon.png'
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - asset/
+
+  fonts:
+    - family: Arbutus Slab
+      fonts:
+        - asset: asset/fonts/Arbutus_Slab.ttf

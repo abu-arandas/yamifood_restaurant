@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>346344856460-gun8pqp7p63gm6uqmab2t4eb3cdcj22r.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.346344856460-gun8pqp7p63gm6uqmab2t4eb3cdcj22r</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>346344856460-t4utb157a8fg6hi1tj9m8cj3i5pk919r.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCfgwyqRr8zeHWJLR82e0RxKuHn_TJEy1E</string>
+	<key>GCM_SENDER_ID</key>
+	<string>346344856460</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.arandas.yamifoodRestaurant</string>
+	<key>PROJECT_ID</key>
+	<string>yamifood-restaurants-app</string>
+	<key>STORAGE_BUCKET</key>
+	<string>yamifood-restaurants-app.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:346344856460:ios:2b844d3224e2d59bff94a9</string>
+</dict>
+</plist>
