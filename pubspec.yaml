@@ -29,7 +29,6 @@ dependencies:
   geocoding: ^2.1.0
   google_maps_flutter: ^2.2.8
   flutter_polyline_points: ^1.0.0
-  flutter_carousel_slider: ^1.1.0
   url_launcher: ^6.1.11
   syncfusion_flutter_charts: ^21.2.5
   multi_select_flutter: ^4.1.3
