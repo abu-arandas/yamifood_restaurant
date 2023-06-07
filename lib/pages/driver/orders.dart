@@ -57,19 +57,14 @@ class _DriverOrdersPageState extends State<DriverOrdersPage> {
                             );
                           },
                         ),
-                        child: BootstrapHeading.h3(text: DateFormat.yMMMd().format(time)),
+                        child: BootstrapHeading.h5(text: DateFormat.yMMMd().format(time)),
                       ),
                     ],
                   ),
                 ),
-                BootstrapRow(
-                  children: List.generate(
-                    orders.length,
-                    (index) => BootstrapCol(
-                      sizes: 'col-lg-6 col-md-6 col-sm-12',
-                      child: OrderWidget(order: orders[index]),
-                    ),
-                  ),
+                Column(
+                  children:
+                      List.generate(orders.length, (index) => OrderWidget(order: orders[index])),
                 ),
                 if (orders.isEmpty)
                   Container(

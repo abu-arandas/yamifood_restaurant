@@ -34,13 +34,10 @@ class _AdminOrdersPageState extends State<AdminOrdersPage> {
                   return Column(
                     children: [
                       const BootstrapHeading.h2(text: 'New Orders'),
-                      BootstrapRow(
+                      Column(
                         children: List.generate(
                           ordersSnapshot.data!.length,
-                          (index) => BootstrapCol(
-                            sizes: 'col-lg-6 col-md-6 col-sm-12',
-                            child: OrderWidget(order: ordersSnapshot.data![index]),
-                          ),
+                          (index) => OrderWidget(order: ordersSnapshot.data![index]),
                         ),
                       ),
                     ],

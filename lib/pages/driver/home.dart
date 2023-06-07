@@ -63,7 +63,7 @@ class _DriverHomeState extends State<DriverHome> {
                                   : primary,
                             ),
                           ),
-                          child: BootstrapHeading.h3(text: orders[index].id),
+                          child: Text(orders[index].id),
                         ),
                       ),
                     ),
