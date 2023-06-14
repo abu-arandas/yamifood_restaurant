@@ -18,7 +18,7 @@ Yamifood Restaurant | E-commerce Application
 # Add the google maps api
 
 ## Customer
-<img src="screenshots/1.jpg" width="200" height="300" />    <img src="screenshots/2.jpg" width="200" height="300" />    <img src="screenshots/3.jpg" width="200" height="300" />    <img src="screenshots/4.jpg" width="200" height="300" />
+<img src="screenshots/1.jpg" width="22.5%" style="padding-right:5%"/>    <img src="screenshots/2.jpg" width="200" height="300" />    <img src="screenshots/3.jpg" width="200" height="300" />    <img src="screenshots/4.jpg" width="200" height="300" />
 
 ## Authentication
 <img src="screenshots/5.jpg" width="200" height="300" />    <img src="screenshots/6.jpg" width="200" height="300" />
