@@ -48,22 +48,7 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBybhe9rzI4ucgyAv8YMq1RnsEwupvdW-g',
-    appId: '1:346344856460:android:c364d9d83c6e98e8ff94a9',
-    messagingSenderId: '346344856460',
-    projectId: 'yamifood-restaurants-app',
-    storageBucket: 'yamifood-restaurants-app.appspot.com',
-  );
+  static const FirebaseOptions android = FirebaseOptions( );
 
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCfgwyqRr8zeHWJLR82e0RxKuHn_TJEy1E',
-    appId: '1:346344856460:ios:2b844d3224e2d59bff94a9',
-    messagingSenderId: '346344856460',
-    projectId: 'yamifood-restaurants-app',
-    storageBucket: 'yamifood-restaurants-app.appspot.com',
-    androidClientId: '346344856460-t4utb157a8fg6hi1tj9m8cj3i5pk919r.apps.googleusercontent.com',
-    iosClientId: '346344856460-gun8pqp7p63gm6uqmab2t4eb3cdcj22r.apps.googleusercontent.com',
-    iosBundleId: 'com.arandas.yamifoodRestaurant',
-  );
+  static const FirebaseOptions ios = FirebaseOptions( );
 }
