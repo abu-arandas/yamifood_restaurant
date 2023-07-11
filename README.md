@@ -14,8 +14,7 @@ Yamifood Restaurant | E-commerce Application
     3. active the firestore
     4. set the firestore role by enable read always but write need auth
     5. active the messaging and add the api
-
-# Add the google maps api
+    6. add the google maps api
 
 ## Customer
 <img src="screenshots/1.jpg" width="22.5%" style="padding-right:5%"/>    <img src="screenshots/2.jpg"  width="22.5%" style="padding-right:5%"/>    <img src="screenshots/3.jpg" w width="22.5%" style="padding-right:5%"/>    <img src="screenshots/4.jpg"  width="22.5%" style="padding-right:5%" />
