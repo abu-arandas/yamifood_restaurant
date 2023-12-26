@@ -33,7 +33,7 @@ class Div extends StatelessWidget {
   final Widget child;
   const Div({super.key, this.lg, this.md, this.sm, this.padding, this.decoration, required this.child});
 
-  double width(BoxConstraints constraints) { // TODO device width
+  double width(BoxConstraints constraints) {
     if (constraints.maxWidth.isGreaterThan(997)) {
       if (lg != null) {
         return constraints.maxWidth * (cols.reverse[lg]! / 12);

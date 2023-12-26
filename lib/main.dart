@@ -53,5 +53,5 @@ class MyApp extends StatelessWidget {
 
 /*
 flutter build web --web-renderer html
-
+firebase deploy
 */
