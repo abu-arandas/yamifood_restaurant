@@ -4,71 +4,66 @@ class CustomerAbout extends StatelessWidget {
   const CustomerAbout({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return CustomerScaf(
-      pageName: 'About Us',
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.max,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          // About Us
-          aboutUs(context),
+  Widget build(BuildContext context) => CustomerScaf(
+        pageName: 'About Us',
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            // About Us
+            aboutUs(context),
 
-          // Our Team
-          Container(color: transparent.withOpacity(0.25), child: const OurTeam()),
+            // Our Team
+            Container(
+              width: double.maxFinite,
+              alignment: Alignment.center,
+              color: transparent.withOpacity(0.25),
+              child: const OurTeam(),
+            ),
 
-          // Customer Reviews
-          const CustomerReviews(),
-        ],
-      ),
-    );
-  }
+            // Customer Reviews
+            const CustomerReviews(),
+          ],
+        ),
+      );
 
-  static Widget aboutUs(context) {
-    return BootstrapContainer(
-      padding: EdgeInsets.all(webScreen(context) ? dPadding * 3 : dPadding),
-      children: [
-        // Info
-        BootstrapCol(
-          sizes: 'col-lg-6 col-md-6 col-sm-12',
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              BootstrapHeading.h2(text: 'Who We are', color: primary),
-              BootstrapParagraph(text: lorem),
-              ListView(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                padding: EdgeInsets.zero,
-                children: const [
-                  ListTile(
-                    leading: Text("\u2022", style: TextStyle(fontSize: 30)),
-                    title: Text('Delicious butternut squash hunk.'),
+  static Widget aboutUs(context) => Container(
+        padding: EdgeInsets.all(webScreen(context) ? dPadding * 3 : dPadding),
+        constraints: BoxConstraints(maxWidth: maxWidth(context)),
+        child: Wrap(
+          crossAxisAlignment: WrapCrossAlignment.center,
+          children: [
+            // Info
+            Div(
+              lg: Col.col6,
+              md: Col.col6,
+              sm: Col.col12,
+              child: Column(
+                crossAxisAlignment: webScreen(context) ? CrossAxisAlignment.start : CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    'Who we are',
+                    style: title(context: context, color: primary),
                   ),
-                  ListTile(
-                    leading: Text("\u2022", style: TextStyle(fontSize: 30)),
-                    title: Text('Flavor centerpiece plate, delicious ribs bone-in meat.'),
-                  ),
-                  ListTile(
-                    leading: Text("\u2022", style: TextStyle(fontSize: 30)),
-                    title: Text('Romantic fall-off-the-bone butternut chuck rice burgers.'),
-                  ),
-                  ListTile(
-                    leading: Text("\u2022", style: TextStyle(fontSize: 30)),
-                    title: Text('Romantic fall-off-the-bone butternut chuck rice burgers.'),
+                  Padding(padding: const EdgeInsets.all(8), child: Text(App.description)),
+                  ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    padding: EdgeInsets.zero,
+                    itemCount: App.about.length,
+                    itemBuilder: (context, index) => ListTile(
+                      leading: const Icon(Icons.circle),
+                      title: Text(App.about[index]),
+                    ),
                   ),
                 ],
               ),
-            ],
-          ),
-        ),
+            ),
 
-        // Image
-        BootstrapCol(sizes: 'col-lg-6 col-md-6 col-sm-12', child: Image.asset('asset/about.png')),
-      ],
-    );
-  }
+            // Image
+            Div(lg: Col.col6, md: Col.col6, sm: Col.col12, child: Image.asset('asset/about.png')),
+          ],
+        ),
+      );
 }

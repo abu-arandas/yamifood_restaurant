@@ -21,15 +21,11 @@ class _CategoryEditState extends State<CategoryEdit> {
   @override
   Widget build(BuildContext context) {
     if (widget.category != null) {
-      pickedImage == null
-          ? image = MemoryImage(base64Decode(widget.category!.image))
-          : image = FileImage(File(pickedImage!.path));
+      pickedImage == null ? image = MemoryImage(base64Decode(widget.category!.image)) : image = FileImage(File(pickedImage!.path));
 
       name = TextEditingController(text: widget.category!.name);
     } else {
-      pickedImage == null
-          ? image = NetworkImage(defaultImage)
-          : image = FileImage(File(pickedImage!.path));
+      pickedImage == null ? image = NetworkImage(defaultImage) : image = FileImage(File(pickedImage!.path));
     }
 
     return AdminScaf(
@@ -69,9 +65,7 @@ class _CategoryEditState extends State<CategoryEdit> {
                         }
                       },
                       icon: Icon(
-                        pickedImage == null
-                            ? FontAwesomeIcons.camera
-                            : FontAwesomeIcons.circleMinus,
+                        pickedImage == null ? Icons.camera : Icons.remove_circle,
                         color: white,
                         size: 18,
                       ),
@@ -89,7 +83,7 @@ class _CategoryEditState extends State<CategoryEdit> {
                   ),
 
                   // Button
-                  BootstrapButton(
+                  ElevatedButton(
                     onPressed: () async {
                       if (formKey.currentState!.validate()) {
                         String imageData;
@@ -106,8 +100,7 @@ class _CategoryEditState extends State<CategoryEdit> {
 
                         if (widget.category != null) {
                           CategoryServices.instance.updateCategory(
-                            CategoryModel(
-                                id: widget.category!.id, name: name.text, image: imageData),
+                            CategoryModel(id: widget.category!.id, name: name.text, image: imageData),
                           );
                         } else {
                           CategoryServices.instance.addCategory(

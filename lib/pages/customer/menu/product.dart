@@ -5,63 +5,44 @@ class ProductWidget extends StatelessWidget {
   const ProductWidget({super.key, required this.productData});
 
   @override
-  Widget build(BuildContext context) {
-    return GetBuilder<ProductServices>(
-      init: ProductServices(),
-      builder: (controller) {
-        ProductModel product = controller.cart.any((element) => element.id == productData.id)
-            ? controller.cart.singleWhere((element) => element.id == productData.id)
-            : productData;
-
-        return Card(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Image
-              Container(
-                width: double.maxFinite,
-                height: 150,
-                padding: EdgeInsets.all(dPadding),
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: MemoryImage(base64Decode(product.image)),
-                    fit: BoxFit.fill,
-                    colorFilter: overlay,
-                  ),
-                  borderRadius: BorderRadius.circular(12.5),
-                  boxShadow: [blackShadow],
-                ),
+  Widget build(BuildContext context) => Card(
+        child: ListTile(
+          // Image
+          leading: Container(
+            width: 75,
+            height: 75,
+            padding: EdgeInsets.all(dPadding),
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: MemoryImage(base64Decode(productData.image)),
+                fit: BoxFit.fill,
+                colorFilter: overlay,
               ),
-
-              // Title
-              Padding(
-                padding: EdgeInsets.only(left: dPadding),
-                child: BootstrapHeading.h3(text: product.name),
-              ),
-
-              // Price & Cart
-              Padding(
-                padding: EdgeInsets.all(dPadding).copyWith(top: 0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    // Price
-                    BootstrapParagraph(text: '${product.price} JD'),
-
-                    // Cart
-                    controller.cartButton(product: product),
-                  ],
-                ),
-              ),
-            ],
+              borderRadius: BorderRadius.circular(12.5),
+              boxShadow: [blackShadow],
+            ),
           ),
-        );
-      },
-    );
-  }
+
+          // Title
+          title: Text(productData.name, style: const TextStyle(fontWeight: FontWeight.bold)),
+
+          // Price & Cart
+          subtitle: Padding(
+            padding: const EdgeInsets.all(8),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                // Price
+                Text('${productData.price} JD'),
+
+                // Cart
+                ProductServices.instance.cartButton(productData: productData),
+              ],
+            ),
+          ),
+        ),
+      );
 }

@@ -25,25 +25,24 @@ class TextInputFeild extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      style: TextStyle(color: color),
-      decoration: inputDecoration(text, color, suffixIcon),
-      controller: controller,
-      cursorColor: color,
-      keyboardType: keyboardType,
-      textInputAction: textInputAction,
-      obscureText: obscureText,
-      validator: (value) {
-        if (value!.isEmpty) {
-          return '* required';
-        }
-        return null;
-      },
-      onChanged: onChanged,
-      onFieldSubmitted: onFieldSubmitted,
-    );
-  }
+  Widget build(BuildContext context) => TextFormField(
+        style: TextStyle(color: color),
+        decoration: inputDecoration(text, color, suffixIcon),
+        controller: controller,
+        cursorColor: color,
+        keyboardType: keyboardType,
+        textInputAction: textInputAction,
+        obscureText: obscureText,
+        validator: (value) {
+          if (value!.isEmpty) {
+            return '* required';
+          }
+
+          return null;
+        },
+        onChanged: onChanged,
+        onFieldSubmitted: onFieldSubmitted,
+      );
 }
 
 class PhoneInput extends StatelessWidget {
@@ -61,11 +60,9 @@ class PhoneInput extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    return PhoneFormField(
+  Widget build(BuildContext context) => PhoneFormField(
         decoration: inputDecoration(text, color, null),
-        defaultCountry: 'JO',
-        initialValue: controller.value,
-        controller: controller);
-  }
+        defaultCountry: IsoCode.JO,
+        controller: controller,
+      );
 }

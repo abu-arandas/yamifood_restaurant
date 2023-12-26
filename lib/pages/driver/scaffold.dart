@@ -17,10 +17,10 @@ class _DriverScafState extends State<DriverScaf> {
   void initState() {
     super.initState();
 
-    // Show Top Button
     scrollController.addListener(
       () => setState(
-          () => scrolled = scrollController.offset >= screenHeight(context) * 0.25 ? true : false),
+        () => scrolled = scrollController.offset >= screenHeight(context) * 0.25,
+      ),
     );
   }
 
@@ -45,26 +45,20 @@ class _DriverScafState extends State<DriverScaf> {
           IconButton(
             onPressed: () => page(const Home()),
             icon: Icon(
-              FontAwesomeIcons.house,
-              size: 18,
+              Icons.house,
               color: widget.pageName == 'Home' ? primary : white,
             ),
           ),
           IconButton(
             onPressed: () => page(const DriverOrdersPage()),
             icon: Icon(
-              FontAwesomeIcons.clockRotateLeft,
-              size: 18,
+              Icons.history,
               color: widget.pageName == 'History' ? primary : white,
             ),
           ),
           IconButton(
             onPressed: () => UserServices.instance.signOut(),
-            icon: Icon(
-              FontAwesomeIcons.arrowRightFromBracket,
-              size: 18,
-              color: white,
-            ),
+            icon: Icon(Icons.logout, color: white),
           ),
         ],
       ),
@@ -80,10 +74,7 @@ class _DriverScafState extends State<DriverScaf> {
                 duration: const Duration(seconds: 1),
                 curve: Curves.easeInOut,
               ),
-              child: const Icon(
-                FontAwesomeIcons.arrowUp,
-                size: 18,
-              ),
+              child: const Icon(Icons.keyboard_arrow_up),
             )
           : Container(),
     );

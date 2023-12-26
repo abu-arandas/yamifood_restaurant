@@ -25,17 +25,13 @@ class _ProductEditState extends State<ProductEdit> {
   @override
   Widget build(BuildContext context) {
     if (widget.product != null) {
-      pickedImage == null
-          ? image = MemoryImage(base64Decode(widget.product!.image))
-          : image = FileImage(File(pickedImage!.path));
+      pickedImage == null ? image = MemoryImage(base64Decode(widget.product!.image)) : image = FileImage(File(pickedImage!.path));
 
       name = TextEditingController(text: widget.product!.name);
       price = TextEditingController(text: widget.product!.price.toString());
       description = TextEditingController(text: widget.product!.description);
     } else {
-      pickedImage == null
-          ? image = NetworkImage(defaultImage)
-          : image = FileImage(File(pickedImage!.path));
+      pickedImage == null ? image = NetworkImage(defaultImage) : image = FileImage(File(pickedImage!.path));
     }
 
     return AdminScaf(
@@ -75,7 +71,7 @@ class _ProductEditState extends State<ProductEdit> {
                     }
                   },
                   icon: Icon(
-                    pickedImage == null ? FontAwesomeIcons.camera : FontAwesomeIcons.circleMinus,
+                    pickedImage == null ? Icons.camera : Icons.remove_circle,
                     color: white,
                     size: 18,
                   ),
@@ -126,10 +122,8 @@ class _ProductEditState extends State<ProductEdit> {
                   builder: (context, categorySnapshot) {
                     if (categorySnapshot.hasData) {
                       return MultiSelectDialogField(
-                        title: 'Categories',
-                        items: categorySnapshot.data!
-                            .map((e) => MultiSelectItem(e.id, e.name))
-                            .toList(),
+                        title: const Text('Categories'),
+                        items: categorySnapshot.data!.map((e) => MultiSelectItem(e.id, e.name)).toList(),
                         initialValue: widget.product!.categoryName,
                         onConfirm: (categories) {
                           for (var category in categories) {
@@ -141,8 +135,12 @@ class _ProductEditState extends State<ProductEdit> {
                           }
                         },
                       );
-                    } else {
+                    } else if (categorySnapshot.hasError) {
+                      return Center(child: Text(categorySnapshot.error.toString()));
+                    } else if (categorySnapshot.connectionState == ConnectionState.waiting) {
                       return waitContainer();
+                    } else {
+                      return Container();
                     }
                   },
                 ),
@@ -154,7 +152,7 @@ class _ProductEditState extends State<ProductEdit> {
                 child: Row(
                   children: [
                     // Edit
-                    BootstrapButton(
+                    ElevatedButton(
                       onPressed: () async {
                         if (formKey.currentState!.validate()) {
                           String imageData;
@@ -200,9 +198,9 @@ class _ProductEditState extends State<ProductEdit> {
 
                     // Delete
                     if (widget.product != null)
-                      BootstrapButton(
-                        type: BootstrapButtonType.danger,
+                      ElevatedButton(
                         onPressed: () => ProductServices.instance.deleteProduct(widget.product!.id),
+                        style: ElevatedButton.styleFrom(backgroundColor: danger),
                         child: const Text('Delete'),
                       ),
                   ],

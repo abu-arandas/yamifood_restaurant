@@ -12,21 +12,19 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  final formKey = GlobalKey<FormState>();
+  GlobalKey<FormState> formKey = GlobalKey();
   XFile? pickedImage;
   ImageProvider? image;
-  final firstNameController = TextEditingController();
-  final lastNameController = TextEditingController();
-  final emailController = TextEditingController();
-  final phoneController = PhoneController(null);
-  final passwordController = TextEditingController();
+  TextEditingController firstNameController = TextEditingController();
+  TextEditingController lastNameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  PhoneController phoneController = PhoneController(null);
+  TextEditingController passwordController = TextEditingController();
   bool obscureText = true;
 
   @override
   Widget build(BuildContext context) {
-    pickedImage == null
-        ? image = NetworkImage(defaultImage)
-        : image = FileImage(File(pickedImage!.path));
+    pickedImage == null ? image = NetworkImage(defaultImage) : image = FileImage(File(pickedImage!.path));
 
     return AuthWidget(
       body: Form(
@@ -62,7 +60,7 @@ class _SignUpState extends State<SignUp> {
                   }
                 },
                 icon: Icon(
-                  pickedImage == null ? FontAwesomeIcons.camera : FontAwesomeIcons.circleMinus,
+                  pickedImage == null ? Icons.camera : Icons.remove_circle,
                   color: white,
                   size: 18,
                 ),
@@ -121,7 +119,7 @@ class _SignUpState extends State<SignUp> {
               suffixIcon: IconButton(
                 onPressed: () => setState(() => obscureText = !obscureText),
                 icon: Icon(
-                  obscureText ? FontAwesomeIcons.eye : FontAwesomeIcons.lock,
+                  obscureText ? Icons.remove_red_eye : Icons.lock,
                   color: white,
                   size: 16,
                 ),
@@ -132,7 +130,7 @@ class _SignUpState extends State<SignUp> {
             SizedBox(height: dPadding),
 
             // Button
-            BootstrapButton(
+            ElevatedButton(
               onPressed: () => validate(),
               child: const Text('Sign Up'),
             ),
@@ -177,10 +175,7 @@ class _SignUpState extends State<SignUp> {
 
       UserServices.instance.signUp(
         UserModel(
-          name: {
-            'firstName': firstNameController.text,
-            'lastName': lastNameController.text,
-          },
+          name: UserName(firstName: firstNameController.text, lastName: lastNameController.text),
           email: emailController.text,
           image: imageData,
           phone: phoneController.value!,

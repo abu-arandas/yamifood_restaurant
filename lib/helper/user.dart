@@ -4,23 +4,12 @@ class UserServices extends GetxController {
   static UserServices instance = Get.find();
 
   /* ====== Streams ====== */
-  Stream<List<UserModel>> users() {
-    return usersCollection
-        .snapshots()
-        .map((query) => query.docs.map((item) => UserModel.fromJson(item)).toList());
-  }
+  Stream<List<UserModel>> users() => usersCollection.snapshots().map((query) => query.docs.map((item) => UserModel.fromJson(item)).toList());
 
-  Stream<UserModel> user(id) {
-    return usersCollection.doc(id).snapshots().map((query) => UserModel.fromJson(query));
-  }
+  Stream<UserModel> user(id) => usersCollection.doc(id).snapshots().map((query) => UserModel.fromJson(query));
 
-  Stream<List<UserModel>> drivers() {
-    return usersCollection
-        .where('role', isEqualTo: 'Driver')
-        .where('address', isNotEqualTo: null)
-        .snapshots()
-        .map((query) => query.docs.map((item) => UserModel.fromJson(item)).toList());
-  }
+  Stream<List<UserModel>> drivers() => usersCollection.snapshots().map(
+      (query) => query.docs.map((item) => UserModel.fromJson(item)).where((element) => element.role == 'Driver' && element.address != null).toList());
 
   /* ====== Sign In ====== */
   signIn(String email, String password) async {
@@ -44,28 +33,26 @@ class UserServices extends GetxController {
 
       showDialog(
         context: Get.context!,
-        builder: (BuildContext context) {
-          return BootstrapModal(
-            dismissble: true,
-            title: 'Do you want to add your location?',
-            content: const SizedBox(),
-            actions: [
-              BootstrapButton(
-                onPressed: () => AddressServices.instance.updateAddress(null),
-                child: const Text('Yes'),
-              ),
-              BootstrapButton(
-                type: BootstrapButtonType.danger,
-                onPressed: () {
-                  succesSnackBar('Welcome to ${App.name}');
+        builder: (BuildContext context) => BootstrapModal(
+          dismissble: true,
+          title: 'Do you want to add your location?',
+          content: const SizedBox(),
+          actions: [
+            ElevatedButton(
+              onPressed: () => AddressServices.instance.updateAddress(null),
+              child: const Text('Yes'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                succesSnackBar('Welcome to ${App.name}');
 
-                  page(const Home());
-                },
-                child: const Text('No'),
-              ),
-            ],
-          );
-        },
+                page(const Home());
+              },
+              style: ElevatedButton.styleFrom(backgroundColor: danger),
+              child: const Text('No'),
+            ),
+          ],
+        ),
       );
     } on FirebaseAuthException catch (error) {
       errorSnackBar(error.code);

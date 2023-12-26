@@ -20,49 +20,60 @@ class _OrdersPageState extends State<OrdersPage> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return CustomerScaf(
-      pageName: 'Orders',
-      body: Padding(
-        padding: EdgeInsets.symmetric(vertical: dPadding),
-        child: StreamBuilder<List<OrderModel>>(
-          stream: OrderServices.instance.orders(false),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return BootstrapContainer(
-                children: [
-                  Container(
-                    width: double.maxFinite,
-                    padding: EdgeInsets.all(dPadding / 2),
-                    child: BootstrapHeading.h2(text: 'Last Orders', color: primary),
-                  ),
-
-                  // Orders
-                  if (snapshot.data!.isNotEmpty)
-                    for (var order in snapshot.data!) OrderWidget(order: order),
-
-                  // Empty
-                  if (snapshot.data!.isEmpty)
-                    Container(
-                      width: double.maxFinite,
-                      height: 200,
-                      margin: EdgeInsets.all(dPadding),
-                      padding: EdgeInsets.all(dPadding),
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12.5),
-                        color: Theme.of(context).cardColor,
+  Widget build(BuildContext context) => CustomerScaf(
+        pageName: 'Orders',
+        body: Padding(
+          padding: EdgeInsets.symmetric(vertical: dPadding),
+          child: StreamBuilder<List<OrderModel>>(
+            stream: OrderServices.instance.orders(false),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return Padding(
+                  padding: EdgeInsets.all(dPadding),
+                  child: Wrap(
+                    children: [
+                      Container(
+                        width: double.maxFinite,
+                        padding: EdgeInsets.all(dPadding),
+                        child: Text('Last order', style: title(context: context, color: primary)),
                       ),
-                      child: const BootstrapHeading.h2(text: 'No New Orders'),
-                    ),
-                ],
-              );
-            } else {
-              return waitContainer();
-            }
-          },
+
+                      // Orders
+                      if (snapshot.data!.isNotEmpty)
+                        for (var order in snapshot.data!)
+                          Div(
+                            lg: Col.col4,
+                            md: Col.col6,
+                            sm: Col.col12,
+                            child: OrderWidget(order: order),
+                          ),
+
+                      // Empty
+                      if (snapshot.data!.isEmpty)
+                        Container(
+                          width: double.maxFinite,
+                          height: 200,
+                          margin: EdgeInsets.all(dPadding),
+                          padding: EdgeInsets.all(dPadding),
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12.5),
+                            color: Theme.of(context).cardColor,
+                          ),
+                          child: Text('No new Orders', style: TextStyle(fontSize: h3)),
+                        ),
+                    ],
+                  ),
+                );
+              } else if (snapshot.hasError) {
+                return Center(child: Text(snapshot.error.toString()));
+              } else if (snapshot.connectionState == ConnectionState.waiting) {
+                return waitContainer();
+              } else {
+                return Container();
+              }
+            },
+          ),
         ),
-      ),
-    );
-  }
+      );
 }

@@ -15,15 +15,13 @@ class TeamModel {
     required this.instagram,
   });
 
-  factory TeamModel.fromJson(DocumentSnapshot data) {
-    return TeamModel(
+  factory TeamModel.fromJson(DocumentSnapshot data) => TeamModel(
       name: data['name'],
       job: data['job'],
       image: data['image'],
       facebook: data['facebook'],
       instagram: data['instagram'],
     );
-  }
 
   Map<String, dynamic> toJson() => {
         'name': name,

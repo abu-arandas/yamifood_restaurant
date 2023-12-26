@@ -18,8 +18,7 @@ class _AdminScafState extends State<AdminScaf> {
 
     // Show Top Button
     scrollController.addListener(
-      () => setState(
-          () => scrolled = scrollController.offset >= screenHeight(context) * 0.25 ? true : false),
+      () => setState(() => scrolled = scrollController.offset >= screenHeight(context) * 0.25 ? true : false),
     );
   }
 
@@ -30,46 +29,34 @@ class _AdminScafState extends State<AdminScaf> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return AdminScaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        toolbarHeight: scrolled ? 75 : 100,
-        backgroundColor: secondary,
-        title: App.logoWidget(context),
-        actions: [
-          IconButton(
-            onPressed: () => UserServices.instance.signOut(),
-            icon: const Icon(
-              FontAwesomeIcons.arrowRightFromBracket,
-              size: 18,
+  Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          toolbarHeight: scrolled ? 75 : 100,
+          backgroundColor: secondary,
+          title: App.logoWidget(context),
+          actions: [
+            IconButton(
+              onPressed: () => page(const Home()),
+              icon: const Icon(Icons.home),
             ),
-          ),
-        ],
-      ),
-      sideBar: SideBar(
-        backgroundColor: secondary,
-        selectedRoute: '/',
-        onSelected: (item) => item.route != null ? page(item.page) : {},
-        textStyle: TextStyle(color: white),
-        activeTextStyle: TextStyle(color: primary),
-        borderColor: transparent,
-        items: const [
-          AdminMenuItem(title: 'Home', route: '/Home', page: AdminHome()),
-          AdminMenuItem(
-            title: 'Menu',
-            children: [
-              AdminMenuItem(title: 'Categories', route: '/Categories', page: AdminCategories()),
-              AdminMenuItem(title: 'Products', route: '/Products', page: AdminProducts()),
-            ],
-          ),
-          AdminMenuItem(title: 'Orders', route: '/Orders', page: AdminOrdersPage()),
-        ],
-      ),
-      body: SingleChildScrollView(
-        controller: scrollController,
-        child: Padding(padding: EdgeInsets.symmetric(vertical: dPadding), child: widget.body),
-      ),
-    );
-  }
+            IconButton(
+              onPressed: () => page(const AdminMenu()),
+              icon: const Icon(Icons.shopping_bag),
+            ),
+            IconButton(
+              onPressed: () => page(const AdminOrdersPage()),
+              icon: const Icon(Icons.history),
+            ),
+            IconButton(
+              onPressed: () => UserServices.instance.signOut(),
+              icon: const Icon(Icons.logout),
+            ),
+          ],
+        ),
+        body: SingleChildScrollView(
+          controller: scrollController,
+          child: Padding(padding: EdgeInsets.symmetric(vertical: dPadding), child: widget.body),
+        ),
+      );
 }

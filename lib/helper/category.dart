@@ -4,11 +4,9 @@ class CategoryServices extends GetxController {
   static CategoryServices instance = Get.find();
 
   /* ====== Stream ====== */
-  Stream<List<CategoryModel>> categories() {
-    return categoriesCollection
+  Stream<List<CategoryModel>> categories() => categoriesCollection
         .snapshots()
         .map((query) => query.docs.map((item) => CategoryModel.fromJson(item)).toList());
-  }
 
   /* ====== Add ====== */
   addCategory(CategoryModel category) async {
