@@ -27,14 +27,11 @@ class AdminMenu extends StatelessWidget {
               stream: CategoryServices.instance.categories(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  return Wrap(
+                  return FB5Row(
                     children: List.generate(
                       snapshot.data!.length,
-                      (index) => Div(
-                        lg: Col.col4,
-                        md: Col.col6,
-                        sm: Col.col12,
-                        padding: EdgeInsets.all(dPadding),
+                      (index) => FB5Col(
+                        classNames: 'col-lg-4 col-md-6 col-sm-12 col-xs-12 p-3',
                         child: Container(
                           width: double.maxFinite,
                           constraints: const BoxConstraints(minHeight: 150),
@@ -42,7 +39,8 @@ class AdminMenu extends StatelessWidget {
                           alignment: Alignment.topRight,
                           decoration: BoxDecoration(
                             image: DecorationImage(
-                              image: MemoryImage(base64Decode(snapshot.data![index].image)),
+                              image: MemoryImage(
+                                  base64Decode(snapshot.data![index].image)),
                               fit: BoxFit.fill,
                               colorFilter: overlay,
                             ),
@@ -55,7 +53,8 @@ class AdminMenu extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               // -- Name
-                              Text(snapshot.data![index].name, style: TextStyle(fontSize: h3)),
+                              Text(snapshot.data![index].name,
+                                  style: TextStyle(fontSize: h3)),
 
                               // Buttons
                               Column(
@@ -64,7 +63,8 @@ class AdminMenu extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
                                   IconButton(
-                                    onPressed: () => page(CategoryEdit(category: snapshot.data![index])),
+                                    onPressed: () => page(CategoryEdit(
+                                        category: snapshot.data![index])),
                                     icon: Icon(
                                       Icons.edit,
                                       color: white,
@@ -73,7 +73,9 @@ class AdminMenu extends StatelessWidget {
                                     ),
                                   ),
                                   IconButton(
-                                    onPressed: () => CategoryServices.instance.deleteCategory(snapshot.data![index].id),
+                                    onPressed: () => CategoryServices.instance
+                                        .deleteCategory(
+                                            snapshot.data![index].id),
                                     icon: Icon(
                                       Icons.delete,
                                       color: danger,
@@ -91,7 +93,8 @@ class AdminMenu extends StatelessWidget {
                   );
                 } else if (snapshot.hasError) {
                   return Center(child: Text(snapshot.error.toString()));
-                } else if (snapshot.connectionState == ConnectionState.waiting) {
+                } else if (snapshot.connectionState ==
+                    ConnectionState.waiting) {
                   return waitContainer();
                 } else {
                   return Container();
@@ -119,13 +122,11 @@ class AdminMenu extends StatelessWidget {
               stream: ProductServices.instance.products(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  return Wrap(
+                  return FB5Row(
                     children: List.generate(
                       snapshot.data!.length,
-                      (index) => Div(
-                        lg: Col.col4,
-                        md: Col.col6,
-                        sm: Col.col12,
+                      (index) => FB5Col(
+                        classNames: 'col-lg-4 col-md-6 col-sm-12 col-xs-12',
                         child: Card(
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -140,25 +141,29 @@ class AdminMenu extends StatelessWidget {
                                 alignment: Alignment.center,
                                 decoration: BoxDecoration(
                                   image: DecorationImage(
-                                    image: MemoryImage(base64Decode(snapshot.data![index].image)),
+                                    image: MemoryImage(base64Decode(
+                                        snapshot.data![index].image)),
                                     fit: BoxFit.fill,
                                     colorFilter: overlay,
                                   ),
                                   borderRadius: BorderRadius.circular(12.5),
                                   boxShadow: [blackShadow],
                                 ),
-                                child: Text(snapshot.data![index].name, style: TextStyle(fontSize: h2)),
+                                child: Text(snapshot.data![index].name,
+                                    style: TextStyle(fontSize: h2)),
                               ),
 
                               // Price
                               Padding(
-                                padding: EdgeInsets.all(dPadding).copyWith(bottom: 0),
+                                padding: EdgeInsets.all(dPadding)
+                                    .copyWith(bottom: 0),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   mainAxisSize: MainAxisSize.max,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Text('Price :', style: TextStyle(fontSize: h3)),
+                                    Text('Price :',
+                                        style: TextStyle(fontSize: h3)),
                                     SizedBox(width: dPadding / 2),
                                     Text('${snapshot.data![index].price} JD')
                                   ],
@@ -171,29 +176,46 @@ class AdminMenu extends StatelessWidget {
                                 builder: (context, categorySnapshot) {
                                   if (categorySnapshot.hasData) {
                                     return Padding(
-                                      padding: EdgeInsets.all(dPadding).copyWith(top: dPadding / 2, bottom: 0),
+                                      padding: EdgeInsets.all(dPadding)
+                                          .copyWith(
+                                              top: dPadding / 2, bottom: 0),
                                       child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         mainAxisSize: MainAxisSize.max,
-                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
                                         children: [
-                                          Text('Category :', style: TextStyle(fontSize: h3)),
+                                          Text('Category :',
+                                              style: TextStyle(fontSize: h3)),
                                           SizedBox(width: dPadding / 2),
                                           Wrap(
                                             children: List.generate(
-                                              snapshot.data![index].categoryName.length,
+                                              snapshot.data![index].categoryName
+                                                  .length,
                                               (indexData) => Container(
-                                                margin: EdgeInsets.only(left: dPadding / 2),
-                                                padding: EdgeInsets.all(dPadding / 2),
+                                                margin: EdgeInsets.only(
+                                                    left: dPadding / 2),
+                                                padding: EdgeInsets.all(
+                                                    dPadding / 2),
                                                 decoration: BoxDecoration(
-                                                  border: Border.all(color: primary),
-                                                  borderRadius: BorderRadius.circular(12.5),
+                                                  border: Border.all(
+                                                      color: primary),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          12.5),
                                                 ),
                                                 child: Text(
                                                   categorySnapshot.data!
-                                                      .singleWhere((element) => element.id == snapshot.data![index].categoryName[indexData])
+                                                      .singleWhere((element) =>
+                                                          element.id ==
+                                                          snapshot.data![index]
+                                                                  .categoryName[
+                                                              indexData])
                                                       .name,
-                                                  style: TextStyle(fontSize: h2, color: primary),
+                                                  style: TextStyle(
+                                                      fontSize: h2,
+                                                      color: primary),
                                                 ),
                                               ),
                                             ),
@@ -209,7 +231,8 @@ class AdminMenu extends StatelessWidget {
 
                               // Description
                               Padding(
-                                padding: EdgeInsets.all(dPadding).copyWith(top: dPadding / 2, bottom: 0),
+                                padding: EdgeInsets.all(dPadding)
+                                    .copyWith(top: dPadding / 2, bottom: 0),
                                 child: Text(snapshot.data![index].description),
                               ),
 
@@ -220,15 +243,19 @@ class AdminMenu extends StatelessWidget {
                                   children: [
                                     // Edit
                                     ElevatedButton(
-                                      onPressed: () => page(ProductEdit(product: snapshot.data![index])),
+                                      onPressed: () => page(ProductEdit(
+                                          product: snapshot.data![index])),
                                       child: const Text('Edit'),
                                     ),
                                     SizedBox(width: dPadding),
 
                                     // Delete
                                     ElevatedButton(
-                                      onPressed: () => ProductServices.instance.deleteProduct(snapshot.data![index].id),
-                                      style: ElevatedButton.styleFrom(backgroundColor: danger),
+                                      onPressed: () => ProductServices.instance
+                                          .deleteProduct(
+                                              snapshot.data![index].id),
+                                      style: ElevatedButton.styleFrom(
+                                          backgroundColor: danger),
                                       child: const Text('Delete'),
                                     ),
                                   ],
@@ -242,7 +269,8 @@ class AdminMenu extends StatelessWidget {
                   );
                 } else if (snapshot.hasError) {
                   return Center(child: Text(snapshot.error.toString()));
-                } else if (snapshot.connectionState == ConnectionState.waiting) {
+                } else if (snapshot.connectionState ==
+                    ConnectionState.waiting) {
                   return waitContainer();
                 } else {
                   return Container();

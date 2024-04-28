@@ -11,9 +11,11 @@ class Home extends StatelessWidget {
             return StreamBuilder<UserModel>(
               stream: UserServices.instance.user(authSnapshot.data!.email),
               builder: (context, userSnapshot) {
-                if (userSnapshot.hasData && userSnapshot.data!.role == 'Admin') {
+                if (userSnapshot.hasData &&
+                    userSnapshot.data!.role == 'Admin') {
                   return const AdminHome();
-                } else if (userSnapshot.hasData && userSnapshot.data!.role == 'Driver') {
+                } else if (userSnapshot.hasData &&
+                    userSnapshot.data!.role == 'Driver') {
                   return const DriverHome();
                 } else {
                   return const CustomerHome();

@@ -1,7 +1,4 @@
-// ignore_for_file: prefer_collection_literals, depend_on_referenced_packages
-
 import '/exports.dart';
-import 'package:intl/intl.dart';
 
 class DriverOrdersPage extends StatefulWidget {
   const DriverOrdersPage({super.key});
@@ -21,8 +18,10 @@ class _DriverOrdersPageState extends State<DriverOrdersPage> {
           builder: (context, ordersSnapshot) {
             if (ordersSnapshot.hasData) {
               List<OrderModel> orders = ordersSnapshot.data!
-                  .where(
-                      (element) => element.startTime.year == time.year && element.startTime.month == time.month && element.startTime.day == time.day)
+                  .where((element) =>
+                      element.startTime.year == time.year &&
+                      element.startTime.month == time.month &&
+                      element.startTime.day == time.day)
                   .toList();
 
               return Column(
@@ -33,27 +32,38 @@ class _DriverOrdersPageState extends State<DriverOrdersPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Flexible(child: Text('New Orders', style: title(context: context, color: primary))),
+                        Flexible(
+                          child: Text(
+                            'New Orders',
+                            style: title(context: context, color: primary),
+                          ),
+                        ),
                         TextButton(
                           onPressed: () => showDatePicker(
                             context: context,
-                            firstDate: DateTime.now().subtract(const Duration(days: 5)),
-                            lastDate: DateTime.now().add(const Duration(days: 5)),
-                          ).then((value) => value != null ? setState(() => time = value) : {}),
+                            firstDate: DateTime.now().subtract(
+                              const Duration(days: 5),
+                            ),
+                            lastDate: DateTime.now().add(
+                              const Duration(days: 5),
+                            ),
+                          ).then((value) {
+                            if (value != null) {
+                              setState(() => time = value);
+                            }
+                          }),
                           child: Text(DateFormat.yMMMd().format(time)),
                         ),
                       ],
                     ),
                   ),
                   if (orders.isNotEmpty) ...{
-                    Wrap(
+                    FB5Row(
                       children: List.generate(
                         orders.length,
-                        (index) => Div(
-                          lg: Col.col4,
-                          md: Col.col6,
-                          sm: Col.col12,
-                          padding: EdgeInsets.all(dPadding),
+                        (index) => FB5Col(
+                          classNames:
+                              'col-lg-4 col-md-6 col-sm-12 col-xs-12 p-3',
                           child: OrderWidget(order: orders[index]),
                         ),
                       ),
@@ -75,7 +85,8 @@ class _DriverOrdersPageState extends State<DriverOrdersPage> {
               );
             } else if (ordersSnapshot.hasError) {
               return Center(child: Text(ordersSnapshot.error.toString()));
-            } else if (ordersSnapshot.connectionState == ConnectionState.waiting) {
+            } else if (ordersSnapshot.connectionState ==
+                ConnectionState.waiting) {
               return waitContainer();
             } else {
               return Container();

@@ -62,7 +62,6 @@ class PhoneInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) => PhoneFormField(
         decoration: inputDecoration(text, color, null),
-        defaultCountry: IsoCode.JO,
         controller: controller,
       );
 }

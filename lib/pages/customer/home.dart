@@ -26,33 +26,30 @@ class CustomerHome extends StatelessWidget {
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage(carousel[index]),
-                    fit: BoxFit.fill,
+                    fit: BoxFit.cover,
                     colorFilter: overlay,
                   ),
                 ),
-                child: Container(
-                  constraints: BoxConstraints(maxWidth: maxWidth(context)),
+                child: FB5Container(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      const Spacer(),
                       // Welcome
                       RichText(
                         text: TextSpan(
                           text: 'Welcome to ',
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: white,
-                          ),
+                          style: Theme.of(context)
+                              .textTheme
+                              .displaySmall!
+                              .copyWith(color: white),
                           children: <TextSpan>[
                             TextSpan(
                               text: App.name,
                               style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w700,
                                 color: primary,
+                                fontWeight: FontWeight.bold,
                               ),
                             )
                           ],
@@ -73,38 +70,6 @@ class CustomerHome extends StatelessWidget {
                         onPressed: () => page(const CustomerMenuPage()),
                         child: const Text('Shop More'),
                       ),
-                      const Spacer(),
-
-                      // Social
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.max,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Container(
-                            color: white,
-                            width: 100,
-                            height: 1,
-                            margin: EdgeInsets.all(dPadding),
-                          ),
-                          IconButton(
-                            onPressed: App.facebook,
-                            icon: Icon(
-                              FontAwesomeIcons.facebook,
-                              size: 18,
-                              color: white,
-                            ),
-                          ),
-                          IconButton(
-                            onPressed: App.instagram,
-                            icon: Icon(
-                              FontAwesomeIcons.instagram,
-                              size: 18,
-                              color: white,
-                            ),
-                          ),
-                        ],
-                      ),
                     ],
                   ),
                 ),
@@ -117,24 +82,22 @@ class CustomerHome extends StatelessWidget {
             // Our Menu
             Container(
               width: double.maxFinite,
-              alignment: Alignment.center,
               color: transparent.withOpacity(0.25),
               child: const CustomerMenu(),
             ),
 
             // Customers Reviews
-            const Align(alignment: Alignment.center, child: CustomerReviews()),
+            const CustomerReviews(),
 
             // Our Team
             Container(
               width: double.maxFinite,
-              alignment: Alignment.center,
               color: transparent.withOpacity(0.25),
               child: const OurTeam(),
             ),
 
             // Contact Us
-            const Align(alignment: Alignment.center, child: ContactUs()),
+            const ContactUs(),
           ],
         ),
       );

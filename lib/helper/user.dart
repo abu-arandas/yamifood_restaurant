@@ -4,12 +4,20 @@ class UserServices extends GetxController {
   static UserServices instance = Get.find();
 
   /* ====== Streams ====== */
-  Stream<List<UserModel>> users() => usersCollection.snapshots().map((query) => query.docs.map((item) => UserModel.fromJson(item)).toList());
+  Stream<List<UserModel>> users() => usersCollection.snapshots().map(
+      (query) => query.docs.map((item) => UserModel.fromJson(item)).toList());
 
-  Stream<UserModel> user(id) => usersCollection.doc(id).snapshots().map((query) => UserModel.fromJson(query));
+  Stream<UserModel> user(id) => usersCollection
+      .doc(id)
+      .snapshots()
+      .map((query) => UserModel.fromJson(query));
 
-  Stream<List<UserModel>> drivers() => usersCollection.snapshots().map(
-      (query) => query.docs.map((item) => UserModel.fromJson(item)).where((element) => element.role == 'Driver' && element.address != null).toList());
+  Stream<List<UserModel>> drivers() =>
+      usersCollection.snapshots().map((query) => query.docs
+          .map((item) => UserModel.fromJson(item))
+          .where(
+              (element) => element.role == 'Driver' && element.address != null)
+          .toList());
 
   /* ====== Sign In ====== */
   signIn(String email, String password) async {
@@ -27,15 +35,15 @@ class UserServices extends GetxController {
   /* ====== Sign Up ====== */
   signUp(UserModel user) async {
     try {
-      await auth.createUserWithEmailAndPassword(email: user.email, password: user.password!);
+      await auth.createUserWithEmailAndPassword(
+          email: user.email, password: user.password!);
 
       await usersCollection.doc(user.email).set(user.toJson());
 
       showDialog(
         context: Get.context!,
-        builder: (BuildContext context) => BootstrapModal(
-          dismissble: true,
-          title: 'Do you want to add your location?',
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Do you want to add your location?'),
           content: const SizedBox(),
           actions: [
             ElevatedButton(
@@ -60,7 +68,8 @@ class UserServices extends GetxController {
   }
 
   /* ====== Update ====== */
-  updateUser({required String email, required Map<String, dynamic> data}) async {
+  updateUser(
+      {required String email, required Map<String, dynamic> data}) async {
     try {
       await usersCollection.doc(email).update(data);
 

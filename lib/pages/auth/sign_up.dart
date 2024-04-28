@@ -18,13 +18,15 @@ class _SignUpState extends State<SignUp> {
   TextEditingController firstNameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
-  PhoneController phoneController = PhoneController(null);
+  PhoneController phoneController = PhoneController();
   TextEditingController passwordController = TextEditingController();
   bool obscureText = true;
 
   @override
   Widget build(BuildContext context) {
-    pickedImage == null ? image = NetworkImage(defaultImage) : image = FileImage(File(pickedImage!.path));
+    pickedImage == null
+        ? image = NetworkImage(defaultImage)
+        : image = FileImage(File(pickedImage!.path));
 
     return AuthWidget(
       body: Form(
@@ -52,7 +54,8 @@ class _SignUpState extends State<SignUp> {
               child: IconButton(
                 onPressed: () async {
                   if (pickedImage == null) {
-                    pickedImage = await ImagePicker().pickImage(source: ImageSource.gallery);
+                    pickedImage = await ImagePicker()
+                        .pickImage(source: ImageSource.gallery);
                     setState(() {});
                   } else {
                     pickedImage = null;
@@ -106,7 +109,10 @@ class _SignUpState extends State<SignUp> {
             SizedBox(height: dPadding),
 
             // Phone
-            PhoneInput(text: 'Phone Number', color: white, controller: phoneController),
+            PhoneInput(
+                text: 'Phone Number',
+                color: white,
+                controller: phoneController),
             SizedBox(height: dPadding),
 
             // Password
@@ -144,7 +150,8 @@ class _SignUpState extends State<SignUp> {
                 children: [
                   TextSpan(
                     text: 'Sign In',
-                    recognizer: TapGestureRecognizer()..onTap = () => page(const SignIn()),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () => page(const SignIn()),
                     style: TextStyle(
                       fontSize: 17,
                       decoration: TextDecoration.underline,
@@ -175,10 +182,12 @@ class _SignUpState extends State<SignUp> {
 
       UserServices.instance.signUp(
         UserModel(
-          name: UserName(firstName: firstNameController.text, lastName: lastNameController.text),
+          name: UserName(
+              firstName: firstNameController.text,
+              lastName: lastNameController.text),
           email: emailController.text,
           image: imageData,
-          phone: phoneController.value!,
+          phone: phoneController.value,
           password: passwordController.text,
           role: 'Customer',
           token: '',

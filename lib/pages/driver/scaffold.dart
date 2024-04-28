@@ -19,7 +19,8 @@ class _DriverScafState extends State<DriverScaf> {
 
     scrollController.addListener(
       () => setState(
-        () => scrolled = scrollController.offset >= screenHeight(context) * 0.25,
+        () =>
+            scrolled = scrollController.offset >= screenHeight(context) * 0.25,
       ),
     );
   }
@@ -64,7 +65,8 @@ class _DriverScafState extends State<DriverScaf> {
       ),
 
       // Body
-      body: SingleChildScrollView(controller: scrollController, child: widget.body),
+      body: SingleChildScrollView(
+          controller: scrollController, child: widget.body),
 
       // Back to Top
       floatingActionButton: scrolled

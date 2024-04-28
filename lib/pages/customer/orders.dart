@@ -35,16 +35,17 @@ class _OrdersPageState extends State<OrdersPage> {
                       Container(
                         width: double.maxFinite,
                         padding: EdgeInsets.all(dPadding),
-                        child: Text('Last order', style: title(context: context, color: primary)),
+                        child: Text(
+                          'Last order',
+                          style: title(context: context, color: primary),
+                        ),
                       ),
 
                       // Orders
                       if (snapshot.data!.isNotEmpty)
                         for (var order in snapshot.data!)
-                          Div(
-                            lg: Col.col4,
-                            md: Col.col6,
-                            sm: Col.col12,
+                          FB5Col(
+                            classNames: 'col-lg-4 col-md-6 col-sm-12 col-xs-12',
                             child: OrderWidget(order: order),
                           ),
 
@@ -60,7 +61,10 @@ class _OrdersPageState extends State<OrdersPage> {
                             borderRadius: BorderRadius.circular(12.5),
                             color: Theme.of(context).cardColor,
                           ),
-                          child: Text('No new Orders', style: TextStyle(fontSize: h3)),
+                          child: Text(
+                            'No new Orders',
+                            style: TextStyle(fontSize: h3),
+                          ),
                         ),
                     ],
                   ),

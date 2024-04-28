@@ -8,6 +8,7 @@ export 'package:flutter/foundation.dart';
 export 'dart:convert';
 export 'dart:async';
 
+export 'package:flutter_bootstrap5/flutter_bootstrap5.dart';
 export 'package:get/get.dart';
 export 'package:flutter_local_notifications/flutter_local_notifications.dart';
 export 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -19,6 +20,7 @@ export 'package:latlong2/latlong.dart' hide Path;
 export 'package:carousel_slider/carousel_slider.dart';
 export 'package:url_launcher/url_launcher.dart';
 export 'package:multi_select_flutter/multi_select_flutter.dart';
+export 'package:intl/intl.dart' hide TextDirection;
 
 export 'firebase_options.dart';
 export 'package:firebase_core/firebase_core.dart';
@@ -29,8 +31,6 @@ export 'package:firebase_messaging/firebase_messaging.dart';
 /* ====== Components ====== */
 export 'components/constants.dart';
 export 'components/input.dart';
-export 'components/modal.dart';
-export 'components/div.dart';
 export 'components/order.dart';
 
 /* ====== Models ====== */

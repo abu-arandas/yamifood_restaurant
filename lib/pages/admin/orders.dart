@@ -1,7 +1,4 @@
-// ignore_for_file: depend_on_referenced_packages
-
 import '/exports.dart';
-import 'package:intl/intl.dart';
 
 class AdminOrdersPage extends StatefulWidget {
   const AdminOrdersPage({super.key});
@@ -15,20 +12,21 @@ class _AdminOrdersPageState extends State<AdminOrdersPage> {
 
   @override
   Widget build(BuildContext context) => AdminScaf(
-        body: Wrap(
+        body: FB5Row(
           children: [
             // Orders
-            Div(
-              lg: Col.col6,
-              md: Col.col6,
-              sm: Col.col12,
+            FB5Col(
+              classNames: 'col-lg-6 col-md-6 col-sm-12 col-xs-12',
               child: StreamBuilder<List<OrderModel>>(
                 stream: OrderServices.instance.orders(false),
                 builder: (context, ordersSnapshot) {
                   if (ordersSnapshot.hasData) {
                     List<OrderModel> orders = ordersSnapshot.data!
                         .where((element) =>
-                            DateTime(element.startTime.year, element.startTime.month, element.startTime.day) ==
+                            DateTime(
+                                element.startTime.year,
+                                element.startTime.month,
+                                element.startTime.day) ==
                             DateTime(day.year, day.month, day.day))
                         .toList();
 
@@ -40,13 +38,20 @@ class _AdminOrdersPageState extends State<AdminOrdersPage> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Flexible(child: Text('New Orders', style: title(context: context, color: primary))),
+                              Flexible(
+                                  child: Text('New Orders',
+                                      style: title(
+                                          context: context, color: primary))),
                               TextButton(
                                 onPressed: () => showDatePicker(
                                   context: context,
-                                  firstDate: DateTime.now().subtract(const Duration(days: 5)),
-                                  lastDate: DateTime.now().add(const Duration(days: 5)),
-                                ).then((value) => value != null ? setState(() => day = value) : {}),
+                                  firstDate: DateTime.now()
+                                      .subtract(const Duration(days: 5)),
+                                  lastDate: DateTime.now()
+                                      .add(const Duration(days: 5)),
+                                ).then((value) => value != null
+                                    ? setState(() => day = value)
+                                    : {}),
                                 child: Text(DateFormat.yMMMd().format(day)),
                               ),
                             ],
@@ -54,14 +59,12 @@ class _AdminOrdersPageState extends State<AdminOrdersPage> {
                         ),
 
                         // Orders
-                        Wrap(
+                        FB5Row(
                           children: List.generate(
                             orders.length,
-                            (index) => Div(
-                              lg: Col.col4,
-                              md: Col.col6,
-                              sm: Col.col12,
-                              padding: EdgeInsets.all(dPadding),
+                            (index) => FB5Col(
+                              classNames:
+                                  'col-lg-4 col-md-6 col-sm-12 col-xs-12 p-3',
                               child: OrderWidget(order: orders[index]),
                             ),
                           ),
@@ -79,13 +82,17 @@ class _AdminOrdersPageState extends State<AdminOrdersPage> {
                               borderRadius: BorderRadius.circular(12.5),
                               color: Theme.of(context).cardColor,
                             ),
-                            child: Text('No new Orders', style: TextStyle(fontSize: h3)),
+                            child: Text(
+                              'No new Orders',
+                              style: TextStyle(fontSize: h3),
+                            ),
                           ),
                       ],
                     );
                   } else if (ordersSnapshot.hasError) {
                     return Center(child: Text(ordersSnapshot.error.toString()));
-                  } else if (ordersSnapshot.connectionState == ConnectionState.waiting) {
+                  } else if (ordersSnapshot.connectionState ==
+                      ConnectionState.waiting) {
                     return waitContainer();
                   } else {
                     return Container();
@@ -95,10 +102,8 @@ class _AdminOrdersPageState extends State<AdminOrdersPage> {
             ),
 
             // Drivers
-            Div(
-              lg: Col.col6,
-              md: Col.col6,
-              sm: Col.col12,
+            FB5Col(
+              classNames: 'col-lg-6 col-md-6 col-sm-12 col-xs-12 p-3',
               child: StreamBuilder<List<UserModel>>(
                 stream: UserServices.instance.drivers(),
                 builder: (context, snapshot) {
@@ -107,13 +112,16 @@ class _AdminOrdersPageState extends State<AdminOrdersPage> {
                       height: webScreen(context) ? screenHeight(context) : 300,
                       child: FlutterMap(
                         options: MapOptions(
-                          initialCenter: LatLng(App.address['latitude'], App.address['longitude']),
+                          initialCenter: LatLng(App.address['latitude'],
+                              App.address['longitude']),
                           initialZoom: 15,
                         ),
                         children: [
                           TileLayer(
-                            urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-                            userAgentPackageName: 'com.arandas.yamifood_restaurant',
+                            urlTemplate:
+                                'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                            userAgentPackageName:
+                                'com.arandas.yamifood_restaurant',
                           ),
                           MarkerLayer(
                             markers: List.generate(
@@ -124,8 +132,11 @@ class _AdminOrdersPageState extends State<AdminOrdersPage> {
                                   snapshot.data![index].address!.longitude,
                                 ),
                                 child: ListTile(
-                                  title: const Icon(Icons.location_pin, color: Colors.red),
-                                  subtitle: Flexible(child: Text(snapshot.data![index].name.name())),
+                                  title: const Icon(Icons.location_pin,
+                                      color: Colors.red),
+                                  subtitle: Flexible(
+                                      child: Text(
+                                          snapshot.data![index].name.name())),
                                 ),
                               ),
                             ),
@@ -135,7 +146,8 @@ class _AdminOrdersPageState extends State<AdminOrdersPage> {
                     );
                   } else if (snapshot.hasError) {
                     return Center(child: Text(snapshot.error.toString()));
-                  } else if (snapshot.connectionState == ConnectionState.waiting) {
+                  } else if (snapshot.connectionState ==
+                      ConnectionState.waiting) {
                     return waitContainer();
                   } else {
                     return Container();

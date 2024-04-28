@@ -25,7 +25,8 @@ class ProductWidget extends StatelessWidget {
           ),
 
           // Title
-          title: Text(productData.name, style: const TextStyle(fontWeight: FontWeight.bold)),
+          title: Text(productData.name,
+              style: const TextStyle(fontWeight: FontWeight.bold)),
 
           // Price & Cart
           subtitle: Padding(

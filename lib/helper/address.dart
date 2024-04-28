@@ -23,7 +23,8 @@ class AddressServices extends GetxController {
     }
 
     permissionGranted = await Geolocator.checkPermission();
-    if (permissionGranted != LocationPermission.whileInUse || permissionGranted != LocationPermission.always) {
+    if (permissionGranted != LocationPermission.whileInUse ||
+        permissionGranted != LocationPermission.always) {
       permissionGranted = await Geolocator.checkPermission();
     }
   }
@@ -31,17 +32,18 @@ class AddressServices extends GetxController {
   /* ====== Update ====== */
   updateAddress(LatLng? address) {
     MapController mapController = MapController();
-    LatLng newAddress = address ?? LatLng(App.address['latitude'], App.address['longitude']);
+    LatLng newAddress =
+        address ?? LatLng(App.address['latitude'], App.address['longitude']);
 
     Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
-        .then((position) => address = LatLng(position.latitude, position.longitude))
+        .then((position) =>
+            address = LatLng(position.latitude, position.longitude))
         .then((value) => null);
 
     showDialog(
       context: Get.context!,
-      builder: (BuildContext context) => BootstrapModal(
-        dismissble: true,
-        title: 'Chose your Address',
+      builder: (BuildContext context) => AlertDialog(
+        title: const Text('Chose your Address'),
         content: SizedBox(
           height: 300,
           child: FlutterMap(
@@ -67,13 +69,18 @@ class AddressServices extends GetxController {
                 urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
                 userAgentPackageName: 'com.arandas.yamifood_restaurant',
               ),
-              MarkerLayer(markers: [Marker(point: newAddress, child: const Icon(Icons.location_pin, color: Colors.red))]),
+              MarkerLayer(markers: [
+                Marker(
+                    point: newAddress,
+                    child: const Icon(Icons.location_pin, color: Colors.red))
+              ]),
             ],
           ),
         ),
         actions: [
           ElevatedButton(
-            onPressed: () async => await usersCollection.doc(auth.currentUser!.email!).update(
+            onPressed: () async =>
+                await usersCollection.doc(auth.currentUser!.email!).update(
               {'address': GeoPoint(address!.latitude, address!.longitude)},
             ),
             child: const Text('Submit'),
@@ -85,11 +92,14 @@ class AddressServices extends GetxController {
 
   /* ====== Driver ====== */
   driverAddress() {
-    Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
-        .then((position) => usersCollection.doc(auth.currentUser!.email).update({'address': GeoPoint(position.latitude, position.longitude)}));
+    Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high).then(
+        (position) => usersCollection.doc(auth.currentUser!.email).update(
+            {'address': GeoPoint(position.latitude, position.longitude)}));
   }
 
   /* ====== Distance ====== */
   double calculateDistance(LatLng first, LatLng second) =>
-      Geolocator.distanceBetween(first.latitude, first.longitude, second.latitude, second.longitude) / 1000;
+      Geolocator.distanceBetween(
+          first.latitude, first.longitude, second.latitude, second.longitude) /
+      1000;
 }

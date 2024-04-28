@@ -12,19 +12,22 @@ class OrderServices extends GetxController {
           .orderBy('startTime', descending: true)
           .limit(5)
           .snapshots()
-          .map((query) => query.docs.map((item) => OrderModel.fromJson(item)).toList());
+          .map((query) =>
+              query.docs.map((item) => OrderModel.fromJson(item)).toList());
     } else {
       return ordersCollection
           .orderBy('startTime', descending: true)
           .snapshots()
-          .map((query) => query.docs.map((item) => OrderModel.fromJson(item)).toList());
+          .map((query) =>
+              query.docs.map((item) => OrderModel.fromJson(item)).toList());
     }
   }
 
   Stream<List<OrderModel>> driverOrders() => ordersCollection
       .where('driverEmail', isEqualTo: auth.currentUser!.email)
       .snapshots()
-      .map((query) => query.docs.map((item) => OrderModel.fromJson(item)).toList());
+      .map((query) =>
+          query.docs.map((item) => OrderModel.fromJson(item)).toList());
 
   /* ====== Add ======*/
   addOrder() {
@@ -35,39 +38,48 @@ class OrderServices extends GetxController {
 
           showDialog(
             context: Get.context!,
-            builder: (BuildContext context) => BootstrapModal(
-              dismissble: true,
-              title: 'Chose your Address',
+            builder: (BuildContext context) => AlertDialog(
+              title: const Text('Chose your Address'),
               content: user.address != null
                   ? SizedBox(
                       height: 300,
                       child: FlutterMap(
                         options: MapOptions(
                           initialCenter: user.address != null
-                              ? LatLng(user.address!.latitude, user.address!.longitude)
-                              : LatLng(App.address['latitude'], App.address['longitude']),
+                              ? LatLng(user.address!.latitude,
+                                  user.address!.longitude)
+                              : LatLng(App.address['latitude'],
+                                  App.address['longitude']),
                           initialZoom: 15,
                           onMapEvent: (event) {
-                            user.address = GeoPoint(event.camera.center.latitude, event.camera.center.longitude);
+                            user.address = GeoPoint(
+                                event.camera.center.latitude,
+                                event.camera.center.longitude);
                             update();
                           },
                           onTap: (tapPosition, point) {
-                            user.address = GeoPoint(point.latitude, point.longitude);
+                            user.address =
+                                GeoPoint(point.latitude, point.longitude);
                             update();
                           },
                         ),
                         children: [
                           TileLayer(
-                            urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-                            userAgentPackageName: 'com.arandas.yamifood_restaurant',
+                            urlTemplate:
+                                'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                            userAgentPackageName:
+                                'com.arandas.yamifood_restaurant',
                           ),
                           MarkerLayer(
                             markers: [
                               Marker(
                                 point: user.address != null
-                                    ? LatLng(user.address!.latitude, user.address!.longitude)
-                                    : LatLng(App.address['latitude'], App.address['longitude']),
-                                child: const Icon(Icons.location_pin, color: Colors.red),
+                                    ? LatLng(user.address!.latitude,
+                                        user.address!.longitude)
+                                    : LatLng(App.address['latitude'],
+                                        App.address['longitude']),
+                                child: const Icon(Icons.location_pin,
+                                    color: Colors.red),
                               ),
                             ],
                           ),
@@ -102,7 +114,8 @@ class OrderServices extends GetxController {
                                 }
                               }))
                           .then((value) => page(const Home()))
-                          .then((value) => ProductServices.instance.cart.clear())
+                          .then(
+                              (value) => ProductServices.instance.cart.clear())
                           .then((value) => succesSnackBar('Added'));
                     },
                     child: const Text('Submit')),
@@ -121,7 +134,10 @@ class OrderServices extends GetxController {
     try {
       List<UserModel> drivers = [];
 
-      await usersCollection.where('role', isEqualTo: 'Driver').get().then((value) {
+      await usersCollection
+          .where('role', isEqualTo: 'Driver')
+          .get()
+          .then((value) {
         for (var element in value.docs) {
           if (element['role'] != null) {
             drivers.add(UserModel.fromJson(element));
@@ -131,9 +147,8 @@ class OrderServices extends GetxController {
 
       showDialog(
         context: Get.context!,
-        builder: (BuildContext context) => BootstrapModal(
-          dismissble: true,
-          title: 'Chose your Address',
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Chose your Address'),
           content: StreamBuilder<UserModel>(
             stream: UserServices.instance.user(order.customerEmail),
             builder: (context, snapshot) {
@@ -153,7 +168,10 @@ class OrderServices extends GetxController {
                         height: 75,
                         margin: EdgeInsets.all(dPadding),
                         decoration: BoxDecoration(
-                          image: DecorationImage(image: MemoryImage(base64Decode(drivers[index].image)), fit: BoxFit.fill),
+                          image: DecorationImage(
+                              image: MemoryImage(
+                                  base64Decode(drivers[index].image)),
+                              fit: BoxFit.fill),
                           borderRadius: BorderRadius.circular(12.5),
                         ),
                       ),
@@ -173,8 +191,10 @@ class OrderServices extends GetxController {
                           Text(
                             AddressServices.instance
                                 .calculateDistance(
-                                  LatLng(snapshot.data!.address!.latitude, snapshot.data!.address!.longitude),
-                                  LatLng(drivers[index].address!.latitude, drivers[index].address!.longitude),
+                                  LatLng(snapshot.data!.address!.latitude,
+                                      snapshot.data!.address!.longitude),
+                                  LatLng(drivers[index].address!.latitude,
+                                      drivers[index].address!.longitude),
                                 )
                                 .toStringAsFixed(2),
                             style: TextStyle(fontSize: h4),
@@ -187,17 +207,22 @@ class OrderServices extends GetxController {
                       IconButton(
                         onPressed: () async => await ordersCollection
                             .doc(order.id)
-                            .update({'progress': 'Acepted', 'driverEmail': drivers[index].email})
-                            .then((value) => MessageServices.instance.sendMessage(
-                                  token: snapshot.data!.token,
-                                  title: 'Order Acepted',
-                                  body: 'Wait the Driver',
-                                ))
-                            .then((value) => MessageServices.instance.sendMessage(
-                                  token: drivers[index].token,
-                                  title: 'Order Acepted',
-                                  body: 'Wait the Driver',
-                                ))
+                            .update({
+                              'progress': 'Acepted',
+                              'driverEmail': drivers[index].email
+                            })
+                            .then(
+                                (value) => MessageServices.instance.sendMessage(
+                                      token: snapshot.data!.token,
+                                      title: 'Order Acepted',
+                                      body: 'Wait the Driver',
+                                    ))
+                            .then(
+                                (value) => MessageServices.instance.sendMessage(
+                                      token: drivers[index].token,
+                                      title: 'Order Acepted',
+                                      body: 'Wait the Driver',
+                                    ))
                             .then((value) => succesSnackBar('Acepted'))
                             .then((value) => page(const Home())),
                         icon: const Icon(Icons.check, size: 18),
@@ -227,11 +252,14 @@ class OrderServices extends GetxController {
       await ordersCollection
           .doc(order.id)
           .update({'progress': 'Rejected', 'endTime': DateTime.now()})
-          .then((value) => usersCollection.doc(order.customerEmail).get().then((value) => MessageServices.instance.sendMessage(
-                token: value['token'],
-                title: 'Order Rejected',
-                body: 'Check the rejected Order',
-              )))
+          .then((value) => usersCollection
+              .doc(order.customerEmail)
+              .get()
+              .then((value) => MessageServices.instance.sendMessage(
+                    token: value['token'],
+                    title: 'Order Rejected',
+                    body: 'Check the rejected Order',
+                  )))
           .then((value) => null)
           .then((value) => succesSnackBar('Rejected'));
     } on FirebaseException catch (error) {
@@ -245,11 +273,14 @@ class OrderServices extends GetxController {
       await ordersCollection
           .doc(order.id)
           .update({'progress': 'Done', 'endTime': DateTime.now()})
-          .then((value) => usersCollection.doc(order.customerEmail).get().then((value) => MessageServices.instance.sendMessage(
-                token: value['token'],
-                title: 'Order Rejected',
-                body: 'Check the rejected Order',
-              )))
+          .then((value) => usersCollection
+              .doc(order.customerEmail)
+              .get()
+              .then((value) => MessageServices.instance.sendMessage(
+                    token: value['token'],
+                    title: 'Order Rejected',
+                    body: 'Check the rejected Order',
+                  )))
           .then((value) => null)
           .then((value) => succesSnackBar('Done'));
     } on FirebaseException catch (error) {

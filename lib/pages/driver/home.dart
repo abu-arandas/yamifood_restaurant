@@ -15,46 +15,61 @@ class _DriverHomeState extends State<DriverHome> {
           stream: OrderServices.instance.driverOrders(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              List<OrderModel> orders = snapshot.data!.where((element) => element.progress == 'Acepted').toList();
+              List<OrderModel> orders = snapshot.data!
+                  .where((element) => element.progress == 'Acepted')
+                  .toList();
 
               OrderModel? order = orders.isNotEmpty ? orders.first : null;
 
-              return Wrap(
+              return FB5Row(
                 children: [
                   // Orders
-                  Div(
-                    lg: Col.col3,
-                    md: Col.col5,
-                    sm: Col.col12,
+                  FB5Col(
+                    classNames: 'col-lg-3 col-md-5 col-sm-12 col-xs-12',
                     child: Container(
                       height: webScreen(context) ? screenHeight(context) : 75,
                       padding: EdgeInsets.symmetric(vertical: dPadding / 2),
                       child: ListView.builder(
                         shrinkWrap: true,
                         padding: EdgeInsets.zero,
-                        scrollDirection: webScreen(context) ? Axis.vertical : Axis.horizontal,
+                        scrollDirection: webScreen(context)
+                            ? Axis.vertical
+                            : Axis.horizontal,
                         itemCount: orders.length,
                         itemBuilder: (context, index) => Padding(
                           padding: EdgeInsets.only(right: dPadding),
                           child: ElevatedButton(
-                            onPressed: () => setState(() => order = orders[index]),
+                            onPressed: () =>
+                                setState(() => order = orders[index]),
                             style: ButtonStyle(
                               shape: MaterialStatePropertyAll(
-                                RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.5)),
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12.5),
+                                ),
                               ),
-                              padding: MaterialStatePropertyAll(EdgeInsets.all(dPadding)),
-                              backgroundColor: MaterialStateProperty.resolveWith(
-                                (states) => states.contains(MaterialState.hovered) ||
-                                        states.contains(MaterialState.dragged) ||
-                                        states.contains(MaterialState.pressed) ||
+                              padding: MaterialStatePropertyAll(
+                                EdgeInsets.all(dPadding),
+                              ),
+                              backgroundColor:
+                                  MaterialStateProperty.resolveWith(
+                                (states) => states
+                                            .contains(MaterialState.hovered) ||
+                                        states
+                                            .contains(MaterialState.dragged) ||
+                                        states
+                                            .contains(MaterialState.pressed) ||
                                         order == orders[index]
                                     ? primary
                                     : white,
                               ),
-                              foregroundColor: MaterialStateProperty.resolveWith(
-                                (states) => states.contains(MaterialState.hovered) ||
-                                        states.contains(MaterialState.dragged) ||
-                                        states.contains(MaterialState.pressed) ||
+                              foregroundColor:
+                                  MaterialStateProperty.resolveWith(
+                                (states) => states
+                                            .contains(MaterialState.hovered) ||
+                                        states
+                                            .contains(MaterialState.dragged) ||
+                                        states
+                                            .contains(MaterialState.pressed) ||
                                         order == orders[index]
                                     ? white
                                     : primary,
@@ -68,10 +83,8 @@ class _DriverHomeState extends State<DriverHome> {
                   ),
 
                   // Order Map
-                  Div(
-                    lg: Col.col9,
-                    md: Col.col8,
-                    sm: Col.col12,
+                  FB5Col(
+                    classNames: 'col-lg-9 col-md-8 col-sm-12 col-xs-12',
                     child: order != null
                         ? OrderWidget(order: order!)
                         : Container(
@@ -84,7 +97,10 @@ class _DriverHomeState extends State<DriverHome> {
                               borderRadius: BorderRadius.circular(25),
                               boxShadow: [blackShadow],
                             ),
-                            child: Text('No New Orders', style: TextStyle(fontSize: h3)),
+                            child: Text(
+                              'No New Orders',
+                              style: TextStyle(fontSize: h3),
+                            ),
                           ),
                   ),
                 ],

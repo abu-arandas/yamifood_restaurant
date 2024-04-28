@@ -28,32 +28,33 @@ class CustomerAbout extends StatelessWidget {
         ),
       );
 
-  static Widget aboutUs(context) => Container(
-        padding: EdgeInsets.all(webScreen(context) ? dPadding * 3 : dPadding),
-        constraints: BoxConstraints(maxWidth: maxWidth(context)),
-        child: Wrap(
-          crossAxisAlignment: WrapCrossAlignment.center,
+  static Widget aboutUs(context) => FB5Container(
+        child: FB5Row(
+          classNames: 'align-items-center',
           children: [
             // Info
-            Div(
-              lg: Col.col6,
-              md: Col.col6,
-              sm: Col.col12,
+            FB5Col(
+              classNames: 'col-lg-6 col-md-6 col-sm-12 col-xs-12',
               child: Column(
-                crossAxisAlignment: webScreen(context) ? CrossAxisAlignment.start : CrossAxisAlignment.center,
+                crossAxisAlignment: webScreen(context)
+                    ? CrossAxisAlignment.start
+                    : CrossAxisAlignment.center,
                 children: [
                   Text(
                     'Who we are',
                     style: title(context: context, color: primary),
                   ),
-                  Padding(padding: const EdgeInsets.all(8), child: Text(App.description)),
+                  Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: Text(App.description),
+                  ),
                   ListView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     padding: EdgeInsets.zero,
                     itemCount: App.about.length,
                     itemBuilder: (context, index) => ListTile(
-                      leading: const Icon(Icons.circle),
+                      leading: const Icon(Icons.circle, size: 12),
                       title: Text(App.about[index]),
                     ),
                   ),
@@ -62,7 +63,11 @@ class CustomerAbout extends StatelessWidget {
             ),
 
             // Image
-            Div(lg: Col.col6, md: Col.col6, sm: Col.col12, child: Image.asset('asset/about.png')),
+
+            FB5Col(
+              classNames: 'col-lg-6 col-md-6 col-sm-12 col-xs-12',
+              child: Image.asset('asset/about.png'),
+            ),
           ],
         ),
       );

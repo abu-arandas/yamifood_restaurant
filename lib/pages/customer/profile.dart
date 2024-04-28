@@ -26,9 +26,15 @@ class _UserProfileState extends State<UserProfile> {
       if (event == null) {
         page(const Home());
 
-        usersCollection.doc(auth.currentUser!.email).get().then((value) => setState(
-              () => address = value['address'] == null ? null : LatLng(value['address'].latitude, value['address'].longitude),
-            ));
+        usersCollection
+            .doc(auth.currentUser!.email)
+            .get()
+            .then((value) => setState(
+                  () => address = value['address'] == null
+                      ? null
+                      : LatLng(value['address'].latitude,
+                          value['address'].longitude),
+                ));
       }
     });
   }
@@ -40,14 +46,22 @@ class _UserProfileState extends State<UserProfile> {
           stream: UserServices.instance.user(auth.currentUser!.email),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              pickedImage == null ? image = MemoryImage(base64Decode(snapshot.data!.image)) : image = FileImage(File(pickedImage!.path));
+              pickedImage == null
+                  ? image = MemoryImage(base64Decode(snapshot.data!.image))
+                  : image = FileImage(File(pickedImage!.path));
 
-              TextEditingController firstNameController = TextEditingController(text: snapshot.data!.name.firstName);
-              TextEditingController lastNameController = TextEditingController(text: snapshot.data!.name.lastName);
-              PhoneController phoneController = PhoneController(snapshot.data!.phone);
+              TextEditingController firstNameController =
+                  TextEditingController(text: snapshot.data!.name.firstName);
+              TextEditingController lastNameController =
+                  TextEditingController(text: snapshot.data!.name.lastName);
+              PhoneController phoneController =
+                  PhoneController(initialValue: snapshot.data!.phone);
 
               return Container(
-                padding: EdgeInsets.symmetric(vertical: dPadding * 2, horizontal: dPadding),
+                padding: EdgeInsets.symmetric(
+                  vertical: dPadding * 2,
+                  horizontal: dPadding,
+                ),
                 alignment: Alignment.center,
                 child: Container(
                   constraints: const BoxConstraints(maxWidth: 500),
@@ -79,7 +93,8 @@ class _UserProfileState extends State<UserProfile> {
                         child: IconButton(
                           onPressed: () async {
                             if (pickedImage == null) {
-                              pickedImage = await ImagePicker().pickImage(source: ImageSource.gallery);
+                              pickedImage = await ImagePicker()
+                                  .pickImage(source: ImageSource.gallery);
                               setState(() {});
                             } else {
                               pickedImage = null;
@@ -87,7 +102,9 @@ class _UserProfileState extends State<UserProfile> {
                             }
                           },
                           icon: Icon(
-                            pickedImage == null ? Icons.camera : Icons.remove_circle,
+                            pickedImage == null
+                                ? Icons.camera
+                                : Icons.remove_circle,
                             color: white,
                             size: 18,
                           ),
@@ -123,7 +140,11 @@ class _UserProfileState extends State<UserProfile> {
                       SizedBox(height: dPadding),
 
                       // Phone
-                      PhoneInput(text: 'Phone Number', color: white, controller: phoneController),
+                      PhoneInput(
+                        text: 'Phone Number',
+                        color: white,
+                        controller: phoneController,
+                      ),
                       SizedBox(height: dPadding),
 
                       // Address
@@ -133,21 +154,32 @@ class _UserProfileState extends State<UserProfile> {
                           borderRadius: BorderRadius.circular(12.5),
                           child: FlutterMap(
                             options: MapOptions(
-                              initialCenter: address ?? LatLng(App.address['latitude'], App.address['longitude']),
+                              initialCenter: address ??
+                                  LatLng(App.address['latitude'],
+                                      App.address['longitude']),
                               initialZoom: 15,
-                              onMapEvent: (event) => setState(() => address = event.camera.center),
-                              onTap: (tapPosition, point) => setState(() => address = point),
+                              onMapEvent: (event) =>
+                                  setState(() => address = event.camera.center),
+                              onTap: (tapPosition, point) =>
+                                  setState(() => address = point),
                             ),
                             children: [
                               TileLayer(
-                                urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-                                userAgentPackageName: 'com.arandas.yamifood_restaurant',
+                                urlTemplate:
+                                    'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                                userAgentPackageName:
+                                    'com.arandas.yamifood_restaurant',
                               ),
                               MarkerLayer(
                                 markers: [
                                   Marker(
-                                    point: address ?? LatLng(App.address['latitude'], App.address['longitude']),
-                                    child: const Icon(Icons.location_pin, color: Colors.red),
+                                    point: address ??
+                                        LatLng(
+                                          App.address['latitude'],
+                                          App.address['longitude'],
+                                        ),
+                                    child: const Icon(Icons.location_pin,
+                                        color: Colors.red),
                                   ),
                                 ],
                               ),
@@ -164,9 +196,11 @@ class _UserProfileState extends State<UserProfile> {
                             String imageData;
 
                             if (pickedImage != null) {
-                              imageData = base64Encode(await pickedImage!.readAsBytes());
+                              imageData = base64Encode(
+                                  await pickedImage!.readAsBytes());
                             } else {
-                              http.Response response = await http.get(Uri.parse(defaultImage));
+                              http.Response response =
+                                  await http.get(Uri.parse(defaultImage));
 
                               imageData = base64Encode(response.bodyBytes);
                             }
@@ -174,9 +208,12 @@ class _UserProfileState extends State<UserProfile> {
                             UserServices.instance.updateUser(
                               email: snapshot.data!.email,
                               data: {
-                                'name': {'firstName': firstNameController.text, 'lastName': lastNameController.text},
+                                'name': {
+                                  'firstName': firstNameController.text,
+                                  'lastName': lastNameController.text
+                                },
                                 'image': imageData,
-                                'phone': phoneController.value!,
+                                'phone': phoneController.value,
                                 'address': snapshot.data!.address,
                               },
                             );
