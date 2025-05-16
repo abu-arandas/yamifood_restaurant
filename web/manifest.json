@@ -1,11 +1,11 @@
 {
-    "name": "yamifood_restaurant",
-    "short_name": "yamifood_restaurant",
+    "name": "Yamifood Restaurant",
+    "short_name": "Yamifood",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "background_color": "#FFFFFF",
+    "theme_color": "#D65106",
+    "description": "Yamifood Restaurant Food Delivery Application",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

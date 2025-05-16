@@ -47,18 +47,17 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyB4f0fVje-UPFWSaGoTiPDs0WqldEiT2IM',
-    appId: '1:346344856460:web:9ffe974a59145aebff94a9',
+    apiKey: 'AIzaSyDP4TXQKLkkAIGlwv8fT92RKXlUdR4rTvk',
+    appId: '1:346344856460:web:adaa749ec01224ebff94a9',
     messagingSenderId: '346344856460',
     projectId: 'yamifood-restaurants-app',
     authDomain: 'yamifood-restaurants-app.firebaseapp.com',
     storageBucket: 'yamifood-restaurants-app.appspot.com',
-    measurementId: 'G-NQEP0SKJGZ',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyBybhe9rzI4ucgyAv8YMq1RnsEwupvdW-g',
-    appId: '1:346344856460:android:2d549b9f5b039ec5ff94a9',
+    appId: '1:346344856460:android:df3971ee35596710ff94a9',
     messagingSenderId: '346344856460',
     projectId: 'yamifood-restaurants-app',
     storageBucket: 'yamifood-restaurants-app.appspot.com',
@@ -66,11 +65,12 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyCfgwyqRr8zeHWJLR82e0RxKuHn_TJEy1E',
-    appId: '1:346344856460:ios:0aac4b2cc7c97081ff94a9',
+    appId: '1:346344856460:ios:4235858e1afd1833ff94a9',
     messagingSenderId: '346344856460',
     projectId: 'yamifood-restaurants-app',
     storageBucket: 'yamifood-restaurants-app.appspot.com',
     androidClientId: '346344856460-umj916jeihbts9n2n6qd818jt4gfq9r8.apps.googleusercontent.com',
     iosBundleId: 'com.arandas.yamifoodRestaurant',
   );
+
 }

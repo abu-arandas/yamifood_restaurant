@@ -18,12 +18,14 @@
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="A new Flutter project.">
+  <meta name="description" content="Yamifood Restaurant - Food Delivery Application">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#D65106">
 
   <!-- iOS meta tags & icons -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="yamifood_restaurant">
+  <meta name="apple-mobile-web-app-title" content="Yamifood Restaurant">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
   <!-- Favicon -->
@@ -31,6 +33,89 @@
 
   <title>Yamifood Restaurant</title>
   <link rel="manifest" href="manifest.json">
+  <!-- Loading animation style -->
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #fff;
+      font-family: 'Arial', sans-serif;
+    }
+    
+    .loading {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ffffff;
+    }
+    
+    .loading-logo {
+      width: 120px;
+      height: 120px;
+      animation: pulse 1.5s infinite ease-in-out;
+    }
+    
+    .loading-text {
+      margin-top: 24px;
+      color: #D65106;
+      font-size: 20px;
+      font-weight: bold;
+    }
+    
+    .loading-spinner {
+      margin-top: 40px;
+      width: 50px;
+      height: 50px;
+      border: 5px solid rgba(214, 81, 6, 0.2);
+      border-radius: 50%;
+      border-top-color: #D65106;
+      animation: spin 1s ease-in-out infinite;
+    }
+    
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      50% {
+        transform: scale(1.1);
+        opacity: 0.8;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+    
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+      font-size: 18px;
+      color: #D65106;
+    }
+    .loading-spinner {
+      border: 6px solid #f3f3f3;
+      border-top: 6px solid #D65106;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
 
   <script>
     // The value below is injected by flutter build, do not touch.
@@ -39,7 +124,13 @@
   <!-- This script adds the flutter initialization JS code -->
   <script src="flutter.js" defer></script>
 </head>
-<body>
+<body>  <!-- Loading indicator -->
+  <div class="loading">
+    <img src="favicon.png" alt="Yamifood Logo" class="loading-logo">
+    <div class="loading-text">Yamifood Restaurant</div>
+    <div class="loading-spinner"></div>
+  </div>
+
   <script>
     window.addEventListener('load', function(ev) {
       // Download main.dart.js
