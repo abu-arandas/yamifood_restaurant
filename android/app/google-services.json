@@ -31,6 +31,33 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:346344856460:android:0a9e49e873908402ff94a9",
+        "android_client_info": {
+          "package_name": "com.example.yamifood_restaurant"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBybhe9rzI4ucgyAv8YMq1RnsEwupvdW-g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "346344856460-dhg99u46mk93kefr9k2s103onhaqb22p.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.yamifoodRestaurant"
+              }
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"

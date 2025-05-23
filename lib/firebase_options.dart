@@ -57,7 +57,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyBybhe9rzI4ucgyAv8YMq1RnsEwupvdW-g',
-    appId: '1:346344856460:android:df3971ee35596710ff94a9',
+    appId: '1:346344856460:android:0a9e49e873908402ff94a9',
     messagingSenderId: '346344856460',
     projectId: 'yamifood-restaurants-app',
     storageBucket: 'yamifood-restaurants-app.appspot.com',

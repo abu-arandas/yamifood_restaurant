@@ -1,44 +1,43 @@
 name: yamifood_restaurant
-description: Yamifood Restaurant | E-commerce Application
+description: A Flutter restaurant delivery app with GetX and Firebase.
 publish_to: 'none'
 version: 1.0.0+1
+
 environment:
   sdk: '>=3.0.0 <4.0.0'
+
 dependencies:
   flutter:
     sdk: flutter
-      # Firebase
-  firebase_core: ^3.13.0
-  firebase_auth: ^5.5.3
-  cloud_firestore: ^5.6.7
-  firebase_messaging: ^15.2.5
-  firebase_storage: ^12.4.5
-    # State Management
-  get: ^4.6.5
-  get_storage: ^2.1.1
-  
-  # UI Enhancement
-  flutter_staggered_animations: ^1.1.1
-  cached_network_image: ^3.4.1
-  shimmer: ^3.0.0
-  flutter_animate: ^4.5.2
-  pull_to_refresh: ^2.0.0
-  google_fonts: ^6.2.1
+  cupertino_icons: ^1.0.2
+  get: ^4.6.6
+  flutter_bootstrap5: ^1.1.1+1
+  firebase_core: ^2.24.2
+  cloud_firestore: ^4.14.0
+  firebase_auth: ^4.16.0
+  firebase_storage: ^11.6.0
+  firebase_messaging: ^14.7.10
+  google_maps_flutter: ^2.5.0
+  geolocator: ^10.1.0
+  image_picker: ^1.0.7
+  cached_network_image: ^3.3.1
+  intl: ^0.19.0
+  flutter_local_notifications: ^16.3.0
+  shared_preferences: ^2.2.2
+  url_launcher: ^6.2.4
+  flutter_stripe: ^10.0.0
+  uuid: ^4.3.3
+  geocoding: ^2.1.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^5.0.0
+  flutter_lints: ^2.0.0
 
 flutter:
   uses-material-design: true
-
   assets:
-    - asset/
-    - asset/fonts/
     - asset/images/
-    - asset/icons/
-    - asset/animations/
 
   fonts:
     - family: Arbutus Slab
